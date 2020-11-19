@@ -14,7 +14,7 @@ const config = {
   mode: "development",
   plugins: [
     new WebpackPwaManifest({
-      publicPath: __dirname + "/manifest/",
+      publicPath: "/manifest/",
       filename: "manifest.webmanifest",
       inject: false,
       fingerprints: false,

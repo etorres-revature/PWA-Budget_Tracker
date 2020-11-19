@@ -135,7 +135,7 @@ define("./service-worker.js",['./workbox-72f62cac'], function (workbox) { 'use s
     "revision": "994a94bb78c999a2f9c0f26de63dc12d"
   }, {
     "url": "automanifest.webmanifest",
-    "revision": "b610e0ec4f40a1d9418390d5a1939c53"
+    "revision": "d1b9285dbbbe98ca3c1286744d2b8e64"
   }], {});
   workbox.registerRoute("/.(?:html|htm|xml)$/", new workbox.StaleWhileRevalidate({
     "cacheName": "markup",
