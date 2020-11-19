@@ -1,27 +1,164 @@
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/5.1.4/workbox-switch.js");
+/**
+ * Copyright 2018 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-workbox.routing.registerRoute(
-    /\.(?css|js)$/,
-    new workbox.strategies.StaleWhileRevalidate({
-        "cacheName": "assets",
-        plugins: [
-            new workbox.expiration.Plugin({
-                maxEntries: 1000,
-                maxAgeSeconds: 31536000
-            })
-        ]
-    })
-);
+// If the loader is already loaded, just stop.
+if (!self.define) {
+  const singleRequire = name => {
+    if (name !== 'require') {
+      name = name + '.js';
+    }
+    let promise = Promise.resolve();
+    if (!registry[name]) {
+      
+        promise = new Promise(async resolve => {
+          if ("document" in self) {
+            const script = document.createElement("script");
+            script.src = name;
+            document.head.appendChild(script);
+            script.onload = resolve;
+          } else {
+            importScripts(name);
+            resolve();
+          }
+        });
+      
+    }
+    return promise.then(() => {
+      if (!registry[name]) {
+        throw new Error(`Module ${name} didn’t register its module`);
+      }
+      return registry[name];
+    });
+  };
 
-workbox.routing.registerRoute(
-    /\.(?png|jpg|jpeg|gif|bmp|webp|svg|ico)$/,
-    new workbox.strategies.CacheFirst({
-        "cacheName": "images",
-        plugins: [
-            new workbox.exipiration.Plugin({
-                maxEntries: 1000,
-                maxAgeSeconds: 31536000
-            })
-        ]
-    })
-);
+  const require = (names, resolve) => {
+    Promise.all(names.map(singleRequire))
+      .then(modules => resolve(modules.length === 1 ? modules[0] : modules));
+  };
+  
+  const registry = {
+    require: Promise.resolve(require)
+  };
+
+  self.define = (moduleName, depsNames, factory) => {
+    if (registry[moduleName]) {
+      // Module is already loading or loaded.
+      return;
+    }
+    registry[moduleName] = Promise.resolve().then(() => {
+      let exports = {};
+      const module = {
+        uri: location.origin + moduleName.slice(1)
+      };
+      return Promise.all(
+        depsNames.map(depName => {
+          switch(depName) {
+            case "exports":
+              return exports;
+            case "module":
+              return module;
+            default:
+              return singleRequire(depName);
+          }
+        })
+      ).then(deps => {
+        const facValue = factory(...deps);
+        if(!exports.default) {
+          exports.default = facValue;
+        }
+        return exports;
+      });
+    });
+  };
+}
+define("./service-worker.js",['./workbox-72f62cac'], function (workbox) { 'use strict';
+
+  /**
+  * Welcome to your Workbox-powered service worker!
+  *
+  * You'll need to register this file in your web app.
+  * See https://goo.gl/nhQhGp
+  *
+  * The rest of the code is auto-generated. Please don't update this file
+  * directly; instead, make changes to your Workbox build configuration
+  * and re-run your build process.
+  * See https://goo.gl/2aRDsh
+  */
+
+  self.addEventListener('message', event => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+      self.skipWaiting();
+    }
+  });
+  /**
+   * The precacheAndRoute() method efficiently caches and responds to
+   * requests for URLs in the manifest.
+   * See https://goo.gl/S9QRab
+   */
+
+  workbox.precacheAndRoute([{
+    "url": "autobundle.js",
+    "revision": "6eae5d250caa6ebabdb4cbb9653dd510"
+  }, {
+    "url": "autoicon_128x128.png",
+    "revision": "d0093ac41d530797b049a6e954619b02"
+  }, {
+    "url": "autoicon_144x144.png",
+    "revision": "d0b96cc567ad253544fb4e8440bdabb8"
+  }, {
+    "url": "autoicon_152x152.png",
+    "revision": "8bc619ee5a82de75fcc037f210251e86"
+  }, {
+    "url": "autoicon_192x192.png",
+    "revision": "7bcd6caee51150523b1902b37499b0cd"
+  }, {
+    "url": "autoicon_384x384.png",
+    "revision": "4974b5bbeb02c60c3f6f678cba2b3d6d"
+  }, {
+    "url": "autoicon_512x512.png",
+    "revision": "2359d8c5512984950d88b5dd9631999c"
+  }, {
+    "url": "autoicon_72x72.png",
+    "revision": "09cedf237d66efd7c98253cd66940699"
+  }, {
+    "url": "autoicon_96x96.png",
+    "revision": "994a94bb78c999a2f9c0f26de63dc12d"
+  }, {
+    "url": "automanifest.webmanifest",
+    "revision": "b610e0ec4f40a1d9418390d5a1939c53"
+  }], {});
+  workbox.registerRoute("/.(?:html|htm|xml)$/", new workbox.StaleWhileRevalidate({
+    "cacheName": "markup",
+    plugins: [new workbox.ExpirationPlugin({
+      maxAgeSeconds: 31536000,
+      purgeOnQuotaError: true
+    })]
+  }), 'GET');
+  workbox.registerRoute("/.(?css|js)$/", new workbox.StaleWhileRevalidate({
+    "cacheName": "assets",
+    plugins: [new workbox.ExpirationPlugin({
+      maxEntries: 500,
+      maxAgeSeconds: 31536000,
+      purgeOnQuotaError: true
+    })]
+  }), 'GET');
+  workbox.registerRoute("/.(?png|jpg|jpeg|gif|bmp|webp|svg|ico)$/", new workbox.CacheFirst({
+    "cacheName": "images",
+    plugins: [new workbox.ExpirationPlugin({
+      maxEntries: 500,
+      maxAgeSeconds: 31536000,
+      purgeOnQuotaError: true
+    })]
+  }), 'GET');
+
+});

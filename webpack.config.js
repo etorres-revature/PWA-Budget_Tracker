@@ -1,23 +1,21 @@
-const path = require("path");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const Workbox = require("workbox-webpack-plugin");
+const path = require("path");
 /**
  * Webpack Config
  * @see https://webpack.js.org/concepts/configuration/
  */
 const config = {
-
   entry: "./public/js/index.js",
   output: {
-    path: path.resolve(__dirname, "/public/dist"),
+    path: __dirname + "/public/dist",
     filename: "bundle.js",
   },
   mode: "development",
   plugins: [
-
     new WebpackPwaManifest({
-      publicPath: "./dist",
-      filename: "manifest.json",
+      publicPath: __dirname + "/manifest/",
+      filename: "manifest.webmanifest",
       inject: false,
       fingerprints: false,
       name: "Progressive Web Application Budget Tracker",
@@ -35,7 +33,7 @@ const config = {
     }),
 
     new Workbox.GenerateSW({
-      swDest: "./public/service-worker.js",
+      swDest: "../service-worker.js",
       runtimeCaching: [
         {
           urlPattern: "/.(?:html|htm|xml)$/",
@@ -43,7 +41,29 @@ const config = {
           options: {
             cacheName: "markup",
             expiration: {
-              maxAgeSeconds: 60 * 60 * 24 * 7,
+              maxAgeSeconds: 31536000,
+            },
+          },
+        },
+        {
+          urlPattern: "/.(?css|js)$/",
+          handler: "StaleWhileRevalidate",
+          options: {
+            cacheName: "assets",
+            expiration: {
+              maxEntries: "500",
+              maxAgeSeconds: 31536000,
+            },
+          },
+        },
+        {
+          urlPattern: "/.(?png|jpg|jpeg|gif|bmp|webp|svg|ico)$/",
+          handler: "CacheFirst",
+          options: {
+            cacheName: "images",
+            expiration: {
+              maxEntries: "500",
+              maxAgeSeconds: 31536000,
             },
           },
         },
