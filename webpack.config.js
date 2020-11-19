@@ -11,10 +11,10 @@ const config = {
         filename: "bundle.js"
     },
     mode: "development",
-    plugins: {
+    plugins: [
         new WebpackPwaManifest({
             publicPath: "/dist/",
-            filename: "manifest.json",
+            filename: "manifest.webmanifest",
             inject: false,
             name: "Progressive Web Application Budget Tracker",
             short_name: "PWA Budget Tracker App",
@@ -29,7 +29,7 @@ const config = {
                 }
             ]
         })
-    }
+    ]
 };
 
 module.exports = config;
