@@ -1,6 +1,6 @@
 const path = require("path");
-
-const { GenerateSw } = require("workbox-webpack-plugin");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
+const Workbox = require("workbox-webpack-plugin");
 
 /**
  * Webpack Config
@@ -11,6 +11,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, "/public/dist"),
     filename: "bundle.js",
+    publicPath: "/",
   },
   mode: "development",
   plugins: [
@@ -31,18 +32,12 @@ const config = {
         },
       ],
     }),
-    new GenerateSw({
-      swSrc: "./public/dist",
-      swDest: "service-worker.js",
-      globDirectory: "./",
-      globPatterns: [
-          "**/*.{css,js}"
-      ],
-      globIgnores: ["node_modules/**/*", "**/gulpfile.js", "service-worker.js"],
+    new Workbox.GenerateSW({
+      swDest: "./public/dist/service-worker.js",
       runtimeCaching: [
         {
-          urlPatter: "/.(?:html|htm|xml)$/",
-          handler: "staleWhileRevalidate",
+          urlPattern: "/.(?:html|htm|xml)$/",
+          handler: "StaleWhileRevalidate",
           options: {
             cacheName: "markup",
             expiration: {

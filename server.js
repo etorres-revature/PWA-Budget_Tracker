@@ -27,5 +27,5 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.use(require("./routes/api.js"));
 
 app.listen(PORT, () => {
-  console.log(`AApp is active at http://localhost:${PORT}!`);
+  console.log(`App is active at http://localhost:${PORT}!`);
 });
