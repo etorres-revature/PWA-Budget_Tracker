@@ -1,24 +1,25 @@
 const path = require("path");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const Workbox = require("workbox-webpack-plugin");
-
 /**
  * Webpack Config
  * @see https://webpack.js.org/concepts/configuration/
  */
 const config = {
+
   entry: "./public/js/index.js",
   output: {
     path: path.resolve(__dirname, "/public/dist"),
     filename: "bundle.js",
-    publicPath: "/",
   },
   mode: "development",
   plugins: [
+
     new WebpackPwaManifest({
-      publicPath: "/dist/",
-      filename: "manifest.webmanifest.json",
+      publicPath: "./dist",
+      filename: "manifest.json",
       inject: false,
+      fingerprints: false,
       name: "Progressive Web Application Budget Tracker",
       short_name: "PWA Budget Tracker",
       theme_color: "#ffffff",
@@ -32,8 +33,9 @@ const config = {
         },
       ],
     }),
+
     new Workbox.GenerateSW({
-      swDest: "./public/dist/service-worker.js",
+      swDest: "./public/service-worker.js",
       runtimeCaching: [
         {
           urlPattern: "/.(?:html|htm|xml)$/",
