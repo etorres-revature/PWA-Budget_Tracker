@@ -34,6 +34,23 @@ const config = {
     new GenerateSw({
       swSrc: "./public/dist",
       swDest: "service-worker.js",
+      globDirectory: "./",
+      globPatterns: [
+          "**/*.{css,js}"
+      ],
+      globIgnores: ["node_modules/**/*", "**/gulpfile.js", "service-worker.js"],
+      runtimeCaching: [
+        {
+          urlPatter: "/.(?:html|htm|xml)$/",
+          handler: "staleWhileRevalidate",
+          options: {
+            cacheName: "markup",
+            expiration: {
+              maxAgeSeconds: 60 * 60 * 24 * 7,
+            },
+          },
+        },
+      ],
     }),
   ],
 };
