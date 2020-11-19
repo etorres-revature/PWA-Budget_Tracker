@@ -17,10 +17,10 @@ const config = {
   plugins: [
     new WebpackPwaManifest({
       publicPath: "/dist/",
-      filename: "manifest.webmanifest",
+      filename: "manifest.webmanifest.json",
       inject: false,
       name: "Progressive Web Application Budget Tracker",
-      short_name: "PWA Budget Tracker App",
+      short_name: "PWA Budget Tracker",
       theme_color: "#ffffff",
       background_color: "#ffffff",
       start_url: "/",
