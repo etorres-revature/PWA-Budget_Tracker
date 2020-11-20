@@ -1,6 +1,7 @@
 const WebpackPwaManifest = require("webpack-pwa-manifest");
-const Workbox = require("workbox-webpack-plugin");
+const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const path = require("path");
+
 /**
  * Webpack Config
  * @see https://webpack.js.org/concepts/configuration/
@@ -12,9 +13,10 @@ const config = {
     filename: "bundle.js",
   },
   mode: "development",
+
   plugins: [
     new WebpackPwaManifest({
-      publicPath: "/manifest/",
+      publicPath: "/dist/",
       filename: "manifest.webmanifest",
       inject: false,
       fingerprints: false,
@@ -32,8 +34,18 @@ const config = {
       ],
     }),
 
-    new Workbox.GenerateSW({
+    new WorkboxWebpackPlugin.GenerateSW({
       swDest: "../service-worker.js",
+      clientsClaim: true,
+      skipWaiting: true,
+      exclude: [
+        /\.(?:png|jpb|jpeg|svg)$/,
+        /\.map$/,
+        /manifest\.webmanifest$/,
+        /bundle\.js/,
+        /service-worker\.js$/,
+        /sw\.js$/,
+      ],
       runtimeCaching: [
         {
           urlPattern: "/.(?:html|htm|xml)$/",

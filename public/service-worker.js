@@ -81,84 +81,44 @@ if (!self.define) {
     });
   };
 }
-define("./service-worker.js",['./workbox-72f62cac'], function (workbox) { 'use strict';
+define("./service-worker.js",['./workbox-cc6fced9'], function (workbox) { 'use strict';
 
-  /**
-  * Welcome to your Workbox-powered service worker!
-  *
-  * You'll need to register this file in your web app.
-  * See https://goo.gl/nhQhGp
-  *
-  * The rest of the code is auto-generated. Please don't update this file
-  * directly; instead, make changes to your Workbox build configuration
-  * and re-run your build process.
-  * See https://goo.gl/2aRDsh
-  */
+	/**
+	* Welcome to your Workbox-powered service worker!
+	*
+	* You'll need to register this file in your web app.
+	* See https://goo.gl/nhQhGp
+	*
+	* The rest of the code is auto-generated. Please don't update this file
+	* directly; instead, make changes to your Workbox build configuration
+	* and re-run your build process.
+	* See https://goo.gl/2aRDsh
+	*/
 
-  self.addEventListener('message', event => {
-    if (event.data && event.data.type === 'SKIP_WAITING') {
-      self.skipWaiting();
-    }
-  });
-  /**
-   * The precacheAndRoute() method efficiently caches and responds to
-   * requests for URLs in the manifest.
-   * See https://goo.gl/S9QRab
-   */
-
-  workbox.precacheAndRoute([{
-    "url": "autobundle.js",
-    "revision": "6eae5d250caa6ebabdb4cbb9653dd510"
-  }, {
-    "url": "autoicon_128x128.png",
-    "revision": "d0093ac41d530797b049a6e954619b02"
-  }, {
-    "url": "autoicon_144x144.png",
-    "revision": "d0b96cc567ad253544fb4e8440bdabb8"
-  }, {
-    "url": "autoicon_152x152.png",
-    "revision": "8bc619ee5a82de75fcc037f210251e86"
-  }, {
-    "url": "autoicon_192x192.png",
-    "revision": "7bcd6caee51150523b1902b37499b0cd"
-  }, {
-    "url": "autoicon_384x384.png",
-    "revision": "4974b5bbeb02c60c3f6f678cba2b3d6d"
-  }, {
-    "url": "autoicon_512x512.png",
-    "revision": "2359d8c5512984950d88b5dd9631999c"
-  }, {
-    "url": "autoicon_72x72.png",
-    "revision": "09cedf237d66efd7c98253cd66940699"
-  }, {
-    "url": "autoicon_96x96.png",
-    "revision": "994a94bb78c999a2f9c0f26de63dc12d"
-  }, {
-    "url": "automanifest.webmanifest",
-    "revision": "d1b9285dbbbe98ca3c1286744d2b8e64"
-  }], {});
-  workbox.registerRoute("/.(?:html|htm|xml)$/", new workbox.StaleWhileRevalidate({
-    "cacheName": "markup",
-    plugins: [new workbox.ExpirationPlugin({
-      maxAgeSeconds: 31536000,
-      purgeOnQuotaError: true
-    })]
-  }), 'GET');
-  workbox.registerRoute("/.(?css|js)$/", new workbox.StaleWhileRevalidate({
-    "cacheName": "assets",
-    plugins: [new workbox.ExpirationPlugin({
-      maxEntries: 500,
-      maxAgeSeconds: 31536000,
-      purgeOnQuotaError: true
-    })]
-  }), 'GET');
-  workbox.registerRoute("/.(?png|jpg|jpeg|gif|bmp|webp|svg|ico)$/", new workbox.CacheFirst({
-    "cacheName": "images",
-    plugins: [new workbox.ExpirationPlugin({
-      maxEntries: 500,
-      maxAgeSeconds: 31536000,
-      purgeOnQuotaError: true
-    })]
-  }), 'GET');
+	workbox.skipWaiting();
+	workbox.clientsClaim();
+	workbox.registerRoute("/.(?:html|htm|xml)$/", new workbox.StaleWhileRevalidate({
+	  "cacheName": "markup",
+	  plugins: [new workbox.ExpirationPlugin({
+	    maxAgeSeconds: 31536000,
+	    purgeOnQuotaError: true
+	  })]
+	}), 'GET');
+	workbox.registerRoute("/.(?css|js)$/", new workbox.StaleWhileRevalidate({
+	  "cacheName": "assets",
+	  plugins: [new workbox.ExpirationPlugin({
+	    maxEntries: 500,
+	    maxAgeSeconds: 31536000,
+	    purgeOnQuotaError: true
+	  })]
+	}), 'GET');
+	workbox.registerRoute("/.(?png|jpg|jpeg|gif|bmp|webp|svg|ico)$/", new workbox.CacheFirst({
+	  "cacheName": "images",
+	  plugins: [new workbox.ExpirationPlugin({
+	    maxEntries: 500,
+	    maxAgeSeconds: 31536000,
+	    purgeOnQuotaError: true
+	  })]
+	}), 'GET');
 
 });

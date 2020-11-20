@@ -5,10 +5,11 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prestart": "npm urn webpack --watch",
+    "prestart": "npm run webpack --watch",
     "start": "node server.js",
     "lite-server": "lite-server",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "wizard": "npm workbox wizard"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "webpack": "^5.5.1",
     "webpack-cli": "^4.2.0",
     "webpack-pwa-manifest": "^4.3.0",
+    "workbox": "0.0.0",
     "workbox-webpack-plugin": "^5.1.4"
   }
 }
