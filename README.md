@@ -4,9 +4,9 @@
 
 ## Project Description
 
-This is a Progressive Web Application (PWA) that allows for the entering and saving of expenses over time to form a budget. Enter a title/category for the expense, enter an amount, and then choose whether to add or substract the amount. The users expenses are then displayed graphically.
+This is a Progressive Web Application (PWA) that allows for the entering and saving of expenses over time to form a budget. Enter a title/category for the expense, enter an amount, and then choose whether to add or substract the amount. The user's expenses are then displayed graphically.
 
-The app includes a manifest for use as a PWA on computers or mobile devices. This allows the app to appear as though it was designed to run natively on the device while it is actually running in a browser. There is a service worker that allows for cacheing of assets to allow for faster loading. Also, IndexedDB is used to save transactions entered while the app is not connected to the internet, so that when it is connected again those transactions are added to the MongoDB database. This allows a seamless user experience when the user is both online or offline.
+The app includes a manifest for use as a Progressive Web App on computers or mobile devices. This allows the app to appear as though it was designed to run natively on the device while it is actually running in a browser. There is a service worker that allows for caching of assets to allow for faster loading. Also, IndexedDB is used to save transactions entered while the app is not connected to the internet, so that when it is connected again those transactions are added to the MongoDB database. This allows a seamless user experience when the user is both online or offline.
 
 ## Table of Contents
 
@@ -24,7 +24,7 @@ The app includes a manifest for use as a PWA on computers or mobile devices. Thi
 
 ## Installation Instructions
 
-Clone this repository and type "npm run start in the command line. Then access the app at http://localhost:18672. Or, use [the PWA Budget Tracker](https://stark-crag-80773.herokuapp.com/) as deployed on Heroku.
+Clone this repository and type "npm run start" in the command line. Then access the app at http://localhost:18672. Or, use [the PWA Budget Tracker](https://stark-crag-80773.herokuapp.com/) as deployed on Heroku.
 
 ## Usage
 
@@ -38,7 +38,7 @@ This app uses the [Webpack](https://www.npmjs.com/package/webpack) package for N
 
 ##### **Webpack Plug-ins**
 
-- [webpack-pwa-manifest](https://www.npmjs.com/package/webpack-pwa-manifest) is a plugin that generates a "manifest.json" for Progressive Web Apps. The module has auto icon resizing and fingerprinting support. The manifest is a JSON file that tells the browser about the Progressive Web App and how it should behave when installed on the user's desktop or mobile device. Typical manifest file will contain:
+- [webpack-pwa-manifest](https://www.npmjs.com/package/webpack-pwa-manifest) is a plugin that generates a "manifest.json" for Progressive Web Apps. The module has auto icon resizing and fingerprinting support. The manifest is a JSON file that tells the browser about the Progressive Web App and how it should behave when installed on the user's desktop or mobile device. Typically, a manifest file will contain:
 
   - app name
   - icons the app should use
