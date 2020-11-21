@@ -8,14 +8,13 @@
     "prestart": "npm run webpack --watch",
     "start": "node server.js",
     "lite-server": "lite-server",
-    "webpack": "webpack",
-    "wizard": "npm workbox wizard"
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/coding-boot-camp/unit18hw.git"
   },
-  "author": "",
+  "author": "Eric D. Torres",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/coding-boot-camp/unit18hw/issues"
