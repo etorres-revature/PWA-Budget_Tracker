@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A web application utilizing progressive web application (PWA) to create offline functionality",
   "main": "server.js",
+  "homepage" :"https://stark-crag-80773.herokuapp.com/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "npm run webpack --watch",
